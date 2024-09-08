@@ -412,8 +412,31 @@ class HeroRepoImpl : HeroRepo {
 
     }
 
-    override suspend fun searchHeroes(name: String): ApiResponse {
-        TODO("Not yet implemented")
+    override suspend fun searchHeroes(name: String?): ApiResponse {
+        return ApiResponse(
+            success = true,
+            message = "OK",
+            heroes = findHeroes(query = name)
+        )
+    }
+
+    private fun findHeroes(query : String?) : List<Hero> {
+
+        val founded = mutableListOf<Hero>()
+
+        return if (!query.isNullOrEmpty()){
+            heroes.forEach{ (_, heroes) ->
+                heroes.forEach { hero ->
+                    if (hero.name.lowercase().contains(query.lowercase())){
+                        founded.add(hero)
+                    }
+                }
+            }
+            founded
+        }else{
+            emptyList()
+        }
+
     }
 
     private fun calculatePage(page : Int) : Map<String,Int?>{
