@@ -407,7 +407,8 @@ class HeroRepoImpl : HeroRepo {
             message = "OK",
             prevPage = calculatePage(page)[PREV_PAGE_KEY],
             nextPage = calculatePage(page)[NEXT_PAGE_KEY],
-            heroes = heroes[page]!!
+            heroes = heroes[page]!!,
+            lastUpdated = System.currentTimeMillis()
         )
 
     }
